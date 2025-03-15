@@ -1,5 +1,7 @@
 # User-specific files
 .env
+service_account.json
+data/
 
 # Python-generated files
 __pycache__/

@@ -1,3 +1,10 @@
+[tool.uv]
+package = true
+
+[build-system]
+requires = ["setuptools", "wheel", "pip"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "absa"
 version = "0.1.0"
@@ -6,9 +13,23 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "chainlit>=2.2.1",
+    "db-dtypes>=1.4.2",
+    "google-cloud-bigquery>=3.27.0",
+    "google-cloud-bigquery-storage>=2.27.0",
     "ipykernel>=6.29.5",
     "ipywidgets>=8.1.5",
     "numpy==1.26.4",
     "openai>=1.65.2",
+    "pandas>=2.2.3",
     "pip>=25.0.1",
+    "pydantic>=2.10.6",
+    "setuptools>=76.0.0",
+    "sqlparse>=0.5.3",
+]
+
+[dependency-groups]
+dev = [
+    "black>=25.1.0",
+    "isort>=6.0.1",
+    "ruff>=0.9.10",
 ]
