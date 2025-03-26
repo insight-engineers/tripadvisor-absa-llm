@@ -3,6 +3,7 @@ from typing import Dict, List
 
 import openai
 import pandas as pd
+import warnings
 
 from absa.constants import (
     OPENAI_API_KEY,
@@ -14,7 +15,14 @@ from absa.utils.models import AspectRating
 
 
 def initialize_openai():
-    return openai.OpenAI(base_url=OPENAI_BASE_URL, api_key=OPENAI_API_KEY)
+    try:
+        warnings.filterwarnings("ignore")
+        openai_client = openai.OpenAI(base_url=OPENAI_BASE_URL, api_key=OPENAI_API_KEY)
+        return openai_client
+    except Exception as e:
+        raise (f"Coudn't initialize OpenAI client. Error: {e}")
+    finally:
+        warnings.filterwarnings("default")
 
 
 def process_absa(client, review_message: str) -> Dict[str, str]:
@@ -85,10 +93,12 @@ def process_absa_table(
             review = connector.join([row[col] for col in review_cols])
             aspect_ratings = process_absa(client, review)
 
+            original_df.loc[index, "general"] = aspect_ratings["general"]
             original_df.loc[index, "food"] = aspect_ratings["food"]
             original_df.loc[index, "price"] = aspect_ratings["price"]
             original_df.loc[index, "ambience"] = aspect_ratings["ambience"]
             original_df.loc[index, "service"] = aspect_ratings["service"]
+            original_df.loc[index, "location"] = aspect_ratings["location"]
 
             # add the processed review to the processed_df
             processed_df = pd.concat([processed_df, original_df.loc[[index]]])
