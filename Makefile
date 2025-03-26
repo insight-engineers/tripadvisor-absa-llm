@@ -12,4 +12,4 @@ format:
 
 demo:
 	@echo "Starting UI..."
-	@uv run python3 absa/demo.py
+	@uv run chainlit run absa/demo.py

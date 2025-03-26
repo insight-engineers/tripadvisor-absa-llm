@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from typing import Dict, List
 
 import openai
@@ -10,8 +11,6 @@ from absa.constants import (
     SYSTEM_PROMPT,
 )
 from absa.utils.models import AspectRating
-
-from collections import OrderedDict
 
 
 def initialize_openai():
@@ -53,7 +52,12 @@ def process_absa(client, review_message: str) -> Dict[str, str]:
     except Exception as e:
         print(f"An error occurred: {e}")
         return AspectRating(
-            food="neutral", price="neutral", ambience="neutral", service="neutral"
+            general="not_given",
+            food="not_given",
+            price="not_given",
+            ambience="not_given",
+            service="not_given",
+            location="not_given",
         ).model_dump()
     except ValueError as e:
         raise Exception(

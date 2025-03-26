@@ -1,7 +1,8 @@
+from datetime import datetime
+
 from absa.constants import BIGQUERY_PROJECT_ID, BIGQUERY_SERVICE_ACCOUNT_PATH
 from absa.handler.bigquery import BigQueryHandler
 from absa.utils.functions import initialize_openai, process_absa_table
-from datetime import datetime
 
 bigquery_client = BigQueryHandler(
     project_id=BIGQUERY_PROJECT_ID, credentials_path=BIGQUERY_SERVICE_ACCOUNT_PATH
